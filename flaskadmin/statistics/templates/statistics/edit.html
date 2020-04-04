@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block alers %}
+    {% if request.method == 'POST' %}
+        <div class="alert alert-success" role="alert">
+            Изменения успешно сохранены!
+        </div>
+    {% endif %}
+{% endblock alers %}
+
+{% block pagename %}
+    <h5 class="card-title">Пользователь</h5>
+{% endblock pagename %}
+
+{% block tbody %}
+
+
+<form action="{{ url_for('stats.edit', uid=user.id) }}" method="post" style="padding-left: 20px;">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Имя</label>
+        <div class="col-sm-10">
+            <label class="col-form-label">{{ user.user_name }}</label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Баланс</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="userbalance" name="balance" placeholder="Баланс" value="{{ '%.2f'|format(user.balance) }}">
+        </div>
+    </div>
+    <fieldset class="form-group">
+        <div class="row">
+            <label class="col-sm-2 col-form-label">Инвестор</label>
+            <div class="col-sm-10">
+                <div class="form-check">
+                    {% if user.invest == True %}
+                        <input class="form-check-input" type="radio" name="investor" id="gridRadios1" value="1" checked>
+                    {% else %}
+                        <input class="form-check-input" type="radio" name="investor" id="gridRadios1" value="1">
+                    {% endif %}
+                    <label class="form-check-label" for="gridRadios1">
+                    Да
+                    </label>
+                </div>
+                <div class="form-check">
+                    {% if user.invest == False %}
+                        <input class="form-check-input" type="radio" name="investor" id="gridRadios2" value="0" checked>
+                    {% else %}
+                        <input class="form-check-input" type="radio" name="investor" id="gridRadios2" value="0">
+                    {% endif %}
+                    <label class="form-check-label" for="gridRadios2">
+                    Нет
+                    </label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Telegram ID</label>
+        <div class="col-sm-10">
+            <label class="col-form-label">{{ user.user_id }}</label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Выполнил условие</label>
+        <div class="col-sm-10">
+            <span class="{{ 'badge badge-success' if user.status else 'badge badge-danger' }}">{{ 'Да' if user.status else 'Нет' }}</span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Кол-во приглашенных</label>
+        <div class="col-sm-10">
+            <label class="col-form-label">{{ user.rate }}</label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Адрес кошелька</label>
+        <div class="col-sm-10">
+             <label class="col-form-label">{{ user.address }}</label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Время регистрации</label>
+        <div class="col-sm-10">
+            <label class="col-form-label">{{ user.reg_time }}</label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+    </div>
+</form>
+
+{% endblock tbody %}

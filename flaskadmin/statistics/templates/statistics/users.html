@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block pagename %}
+    <h5 class="card-title">
+        {{ name }}<br>
+        Общее кол-во пользователей: {{ general_info.user_count }}<br>
+        Суммарное кол-во USDN: {{ '%.2f'|format(general_info.sum_balance) }}
+    </h5>
+{% endblock pagename %}
+
+{% block tbody %}
+
+    <table class="table datatable-save-state">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Баланс</th>
+                <th>Кол-во приглашенных</th>
+                <th>Адрес кошелька</th>
+                <th>Статус инвестора</th>
+                <th class="text-center">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users_data %}
+            <tr>
+                <td>{{ user.user_name }}</td>
+                <td>{{ "%.2f"|format(user.balance) }}</td>
+                <td>{{ user.rate }}</td>
+                <td>{{ user.address }}</td>
+                <td><span class="{{ 'badge badge-success' if user.invest else 'badge badge-danger' }}">{{ 'Инвестор' if user.invest else 'Обычный' }}</span></td>
+                <td class="text-center"><a href="{{ url_for('stats.edit', uid=user.id) }}"><i class="icon-pencil"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock tbody %}

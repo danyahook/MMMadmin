@@ -1,0 +1,9 @@
+{% extends 'base_auth.html' %}
+{% block form %}
+    <h4>Редактировать</h4>
+    <form name="loginform" action="{{ url_for('auth.redact') }}" method="post">
+    <input type="text" id="login" class="fadeIn second" name="login" value="admin" disabled>
+    <input type="password" id="password" class="fadeIn third" name="password" placeholder="пароль">
+    <input type="submit" class="fadeIn fourth" value="Сохранить">
+    </form>
+{% endblock form %}
