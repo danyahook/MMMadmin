@@ -117,20 +117,3 @@ def edit_percent():
         db.session.commit()
 
     return render_template('edit_percent.html', percent=percent)
-
-
-@stats.route('/qwe', methods=['GET', 'POST'])
-def qwe():
-    items = Items(btn_name='📥 Внести', btn_text='')
-    db.session.add(items)
-    items = Items(btn_name='📤 Вывести > 100 USDN', btn_text='')
-    db.session.add(items)
-    items = Items(btn_name='📘 О нас', btn_text='')
-    db.session.add(items)
-    items = Percent(per_name='Обычный пользователь', per_count='')
-    db.session.add(items)
-    items = Percent(per_name='Инвестор', per_count='')
-    db.session.add(items)
-
-    db.session.commit()
-    return 'ok'
